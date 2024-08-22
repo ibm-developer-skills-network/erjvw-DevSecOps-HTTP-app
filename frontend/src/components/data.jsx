@@ -4,9 +4,10 @@ import { useEffect } from "react";
 const Data = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
-  try {
-    useEffect(() => {
-      const fetchData = async () => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const rawData = await fetch("http://127.0.0.1:5000/posts")
           .then((data) => data.json())
           .then((response) => {
@@ -17,12 +18,14 @@ const Data = () => {
             console.error("There was an error!", error.message);
             setError(error.message);
           });
-      };
-      fetchData();
-    }, []);
-  } catch (ex) {
-    console.log(ex);
-  }
+      } catch (ex) {
+        console.log(ex);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   const table = (
     <>
       <p>Data Successfully retrieved!</p>
